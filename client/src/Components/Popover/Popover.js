@@ -28,7 +28,7 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 export default function SimplePopover(props) {
-  const { handleChangeSearch } = props;
+  const { handleChangeSearchFilter } = props;
   const classes = useStyles();
   const [anchorEl, setAnchorEl] = React.useState(null);
   const [invisible, setInvisible] = React.useState(true);
@@ -39,14 +39,18 @@ export default function SimplePopover(props) {
   const handleChange = (event) => {
     setFilterValue(event.target.value)
     switch (event.target.value) {
-        case 'District':
-            setFilter(['Indiana', 'Texas', 'Georgia'])
+        case 'Show Status':
+            setFilter(['Running', 'Ended', 'To be Determined', 'In Development'])
             break;
-        case 'Contract Type':
-            setFilter(['jcb', 'laser', 'solo'])
+        case 'Show Type':
+            setFilter(['Scripted', 'Animation', 'Reality', 'Talk Show', 'Documentary', 'Game Show',
+                        'News', 'Sports', 'Variety', 'Award Show', 'Panel Show'])
             break;
-        case 'Number':
-            setFilter(['0', '1', '2', '3', '4'])
+        case 'Rating':
+            setFilter(['2+', '3+', '4+', '5+', '6+', '7+', '8+', '9+'])
+            break;
+        case 'Language':
+            setFilter(['English', 'Italian', 'French'])
             break;
         default:
             break;
@@ -54,13 +58,13 @@ export default function SimplePopover(props) {
   };
 
   const handleFilter = (event) => {
-    handleChangeSearch(event)
+    handleChangeSearchFilter(event, filterValue)
     setValue(event.target.value);
     setInvisible(false)
   };
 
   const handleCancel = (event) => {
-    handleChangeSearch(event)
+    handleChangeSearchFilter(event, filterValue)
     setFilterValue('');
     setValue('');
     setFilter([]);
@@ -116,10 +120,10 @@ export default function SimplePopover(props) {
                 input={<Input id="demo-dialog-native" />}
               >
                 <option aria-label="None" value="" />
-                <option value={'District'}>District</option>
-                <option value={'Contract Type'}>Contract Type</option>
-                <option value={'Number'}>Number</option>
-
+                <option value={'Show Status'}>Show Status</option>
+                <option value={'Show Type'}>Show Type</option>
+                <option value={'Rating'}>Rating</option>
+                <option value={'Language'}>Language</option>
               </Select>
             </FormControl>
             <FormControl className={classes.formControl}>

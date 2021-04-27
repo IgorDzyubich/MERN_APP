@@ -22,6 +22,7 @@ import ListItem from '@material-ui/core/ListItem';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemText from '@material-ui/core/ListItemText';
 import InboxIcon from '@material-ui/icons/MoveToInbox';
+import MovieIcon from '@material-ui/icons/Movie';
 import MailIcon from '@material-ui/icons/Mail';
 import ToolbarMenu from "../ToolbarMenu/ToolbarMenu";
 import Tooltip from '@material-ui/core/Tooltip';
@@ -111,6 +112,14 @@ const useStyles = makeStyles((theme) => ({
     },
   },
   toolbar: {
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+    padding: theme.spacing(0, 1),
+    // necessary for content to be below app bar
+    ...theme.mixins.toolbar,
+  },
+  arrow: {
     display: 'flex',
     alignItems: 'center',
     justifyContent: 'flex-end',
@@ -204,7 +213,7 @@ export default function MiniDrawer(props) {
           }),
         }}
       >
-        <div className={classes.toolbar}>
+        <div className={classes.arrow}>
         <Tooltip title="Hide Menu">
           <IconButton 
               onClick={handleDrawerClose}
@@ -221,15 +230,15 @@ export default function MiniDrawer(props) {
               </Tooltip>
               <ListItemText primary={'Dashboard'} />
             </ListItem>
-            <ListItem button key={'All Users'} onClick={() => props.history.push(`${match.url}/allUsers`) }>
+            {/* <ListItem button key={'All Users'} onClick={() => props.history.push(`${match.url}/allUsers`) }>
               <Tooltip title="All Users"><ListItemIcon><PeopleIcon /></ListItemIcon></Tooltip>
               <ListItemText primary={'All Users'} />
-            </ListItem>
+            </ListItem> */}
             <ListItem button key={'Shows'} onClick={() => props.history.push(`${match.url}/shows`) }>
-              <Tooltip title="Shows"><ListItemIcon><PeopleIcon /></ListItemIcon></Tooltip>
+              <Tooltip title="Shows"><ListItemIcon><MovieIcon /></ListItemIcon></Tooltip>
               <ListItemText primary={'Shows'} />
             </ListItem>
-            <ListItem button onClick={() => props.history.push(`${match.url}/contracts`) }>
+            {/* <ListItem button onClick={() => props.history.push(`${match.url}/contracts`) }>
               <Tooltip title="Contracts"><ListItemIcon><AssignmentIcon /></ListItemIcon></Tooltip>
               <ListItemText primary={'Contracts'} />
             </ListItem>
@@ -244,12 +253,12 @@ export default function MiniDrawer(props) {
             <ListItem button onClick={() => props.history.push(`${match.url}/item3`) }>
               <ListItemIcon><InboxIcon /></ListItemIcon>
               <ListItemText primary='Item 3' />
-            </ListItem>
+            </ListItem> */}
           
         </List>
         <Divider/>
         <List>
-          {['All mail', 'Trash', 'Spam'].map((text, index) => (
+          {['Friends', 'Best shows', 'Notifications', 'Messages'].map((text, index) => (
             <ListItem button key={text}>
               <ListItemIcon>{index % 2 === 0 ? <InboxIcon /> : <MailIcon />}</ListItemIcon>
               <ListItemText primary={text} />
@@ -261,7 +270,7 @@ export default function MiniDrawer(props) {
         <div className={classes.toolbar}>
             <Switch>
             <Route exact path='/logOut' render={ () => <Login /> } />
-            <Route exact path={`${match.url}`} component={Dashboard} />
+            <Route exact path={`${match.url}`} component={UserProfile} />
             <Route path={`${match.url}/allUsers/userProfile/:id`} component={UserProfile} />
             <Route path={`${match.url}/changeUserProfile`} component={ChangeUser} />
             <Route path={`${match.url}/newUser`} component={NewUser} />
@@ -274,7 +283,7 @@ export default function MiniDrawer(props) {
             <Route path={`${match.url}/item3`} component={Item3} />
             <Route path={`${match.url}/allUsers`} component={AllUsers} />
             <Route exact path={`${match.url}/shows`} component={Shows} />
-            <Route path={`${match.url}/shows/show/:id`} component={Show} />
+            <Route path={`${match.url}/shows/:id`} component={Show} />
             <Route path={`${match.url}/inputField`} component={InputField} />
             <Route path={`${match.url}/loginUser`} component={User} />
             <Route path={`${match.url}/*`} component={NotFoundPage} />
