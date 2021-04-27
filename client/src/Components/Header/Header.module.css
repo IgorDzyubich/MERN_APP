@@ -1,0 +1,25 @@
+.header {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    text-align: center;
+    padding: 10px;
+    color: white;
+    background-color: #90a4ae;
+}
+img {
+    height: 40px;
+    cursor: pointer;
+}
+.login {
+    display: inline-block;
+    width: 146px;
+    cursor: pointer;
+}
+.login:hover {
+    color: silver;
+}
+.cursor {
+    cursor: pointer;
+}

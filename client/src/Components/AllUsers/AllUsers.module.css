@@ -1,0 +1,22 @@
+.main {
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+  background-color: silver;
+}
+.content {
+  width: 85%;
+  height: max-content;
+  padding: 10px;
+  position: relative;
+  left: 15%;
+  padding: 10px;
+}
+.wrapper {
+  height: 30px;
+  padding: 10px;
+  border: 1px solid black;
+  margin-bottom: 5px;
+  line-height: 10px;
+  cursor: pointer;
+}
