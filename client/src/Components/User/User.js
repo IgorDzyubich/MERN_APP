@@ -1,9 +1,19 @@
 import React from 'react';
 import { useSelector } from 'react-redux'
+import ContactMailIcon from '@material-ui/icons/ContactMail';
 
 const User = (props) => {
-    const user = useSelector(state => state.AuthReducer.user)
+    console.log('User props.match.params', props.match.params.id)
 
+    const friends = useSelector((state) => {
+        return state.FriendsReducer?.friends
+    });
+    let user = useSelector(state => state.AuthReducer.user)
+
+    if (props.match.params.id) {
+        user = friends.filter(el => el._id === props.match.params.id)[0]
+    } 
+    console.log(user)
     return   (
             <div className="container">
                 <div className="row">
@@ -12,58 +22,26 @@ const User = (props) => {
                             <div className="card-body">
                                 <div className="row">
                                     <div className="col-md-12">
-                                        <h4>{user.first_name} Profile</h4>
+                                        <h4>User dashboard</h4>
                                         <hr/>
                                     </div>
                                 </div>
                                 <div className="row">
-                                    <div className="col-md-12">
+                                    <div className="col-md-2 col-sm-2">
+                                        <ContactMailIcon style={{fontSize: '80px'}}/>
+                                    </div>
+                                    <div className="col-md-10 col-sm-10">
                                         <form>
                                         <div className="form-group row ">
-                                            <label htmlFor="username" className="col-4 col-form-label">User Name</label> 
-                                            <div className="col-8">
-                                            <input id="username" name="username" value={`${user.first_name} ${user.second_name}`} className="form-control here" onChange={()=>{}} required="required" type="text"/>
+                                            <label htmlFor="username" className="col-2 col-form-label">Login:</label> 
+                                            <div className="col-10">
+                                            <input id="username" name="username" value={`${user.email.split('@')[0]}`} className="form-control here" onChange={()=>{}} required="required" type="text"/>
                                             </div>
                                         </div>
                                         <div className="form-group row mt-2">
-                                            <label htmlFor="name" className="col-4 col-form-label">Email</label> 
-                                            <div className="col-8">
+                                            <label htmlFor="name" className="col-2 col-form-label">Email:</label> 
+                                            <div className="col-10">
                                             <input id="name" name="name" value={`${user.email}`} className="form-control here" onChange={()=>{}} type="text"/>
-                                            </div>
-                                        </div>
-                                        <div className="form-group row mt-2">
-                                            <label htmlFor="lastname" className="col-4 col-form-label">Phone</label> 
-                                            <div className="col-8">
-                                            <input id="lastname" name="lastname" value={`${user.phone}`} className="form-control here" onChange={()=>{}} type="text"/>
-                                            </div>
-                                        </div>
-                                        <div className="form-group row mt-2">
-                                            <label htmlFor="text" className="col-4 col-form-label">Role</label> 
-                                            <div className="col-8">
-                                            <input id="text" name="text" value={`${user.role}`} className="form-control here" onChange={()=>{}} required="required" type="text"/>
-                                            </div>
-                                        </div>
-                                        <div className="form-group row mt-2">
-                                            <label htmlFor="email" className="col-4 col-form-label">Address</label> 
-                                            <div className="col-8">
-                                            <input id="email" name="email" value={`${user.address},  ${user.regoin}`} onChange={()=>{}} className="form-control here" required="required" type="text"/>
-                                            </div>
-                                        </div>
-                                        <div className="form-group row mt-2">
-                                            <label htmlFor="website" className="col-4 col-form-label">IP Address</label> 
-                                            <div className="col-8">
-                                            <input id="website" name="website" value={`${user.ip_address}`} className="form-control here" onChange={()=>{}} type="text"/>
-                                            </div>
-                                        </div>
-                                        <div className="form-group row mt-2">
-                                            <label htmlFor="publicinfo" className="col-4 col-form-label">Public Info</label> 
-                                            <div className="col-8">
-                                            <textarea id="publicinfo" name="publicinfo" cols="40" rows="4" className="form-control" onChange={()=>{}}></textarea>
-                                            </div>
-                                        </div>
-                                        <div className="form-group row mt-2">
-                                            <div className="offset-4 col-8">
-                                            <button name="submit" type="submit" className="btn btn-primary">Update My Profile</button>
                                             </div>
                                         </div>
                                         </form>

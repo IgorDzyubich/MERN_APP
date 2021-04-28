@@ -2,7 +2,6 @@ import React from 'react';
 import { useSelector } from 'react-redux'
 
 const Show = (props) => {
-    
     const showId = props.match.params.id
     const show = useSelector(state => state.ShowsReducer.shows.find(el => el.id == showId))
     

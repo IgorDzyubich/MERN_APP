@@ -272,6 +272,7 @@ export default function MiniDrawer(props) {
             <Route exact path='/logOut' render={ () => <Login /> } />
             <Route exact path={`${match.url}`} component={UserProfile} />
             <Route path={`${match.url}/allUsers/userProfile/:id`} component={UserProfile} />
+            <Route path={`${match.url}/userProfile/:id`} component={User} />
             <Route path={`${match.url}/changeUserProfile`} component={ChangeUser} />
             <Route path={`${match.url}/newUser`} component={NewUser} />
             <Route exact path={`${match.url}/contracts`} component={ContractsTable} />

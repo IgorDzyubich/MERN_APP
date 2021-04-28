@@ -1,27 +1,25 @@
 const express = require('express');
 const morgan = require('morgan');
 const mongoose = require('mongoose');
-// const path = require('path');
 const app = express();
 const cors = require('cors');
 const port = process.env.PORT || 8080;
 const {url} = require('./config');
 
 const authRouter = require('./routers/authRouter');
-// const contractRouter = require('./routers/contractRouter');
-// const truckRouter = require('./routers/truckRouter');
+const showsRouter = require('./routers/favouritesShowsRouter');
 const userRouter = require('./routers/userRouter');
-// const loadRouter = require('./routers/loadRouter');
+const friendsRouter = require('./routers/friendsRouter');
+
 app.use(cors());
 app.use(express.json());
-// app.use(express.static(path.join(__dirname, 'public')));
 app.use(morgan('tiny'));
 
 app.use('/api/auth', authRouter);
-// app.use('/api/trucks', truckRouter);
-// app.use('/api/loads', loadRouter);
+app.use('/api/shows', showsRouter);
+app.use('/api/friends', friendsRouter);
 app.use('/api/users/me', userRouter);
-// app.use('/api/contracts', contractRouter);
+
 /** The class UnauthorizedError.*/
 class UnauthorizedError extends Error {
   /**

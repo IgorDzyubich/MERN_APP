@@ -1,9 +1,9 @@
 import React from 'react';
 import { useSelector } from 'react-redux'
 import ContactMailIcon from '@material-ui/icons/ContactMail';
+import FullWidthTabs from './FullWidthTabs'
 
-const UserProfile = () => {
-    
+const UserProfile = (props) => {
     const user = useSelector(state => state.AuthReducer.user)
     
     return   (
@@ -39,6 +39,15 @@ const UserProfile = () => {
                                         </form>
                                     </div>
                                 </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div className="row mt-2">
+                    <div className="col-md-12">
+                        <div className="card">
+                            <div className="card-body">
+                                <FullWidthTabs {...props}/>
                             </div>
                         </div>
                     </div>

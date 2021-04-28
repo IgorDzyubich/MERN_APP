@@ -1,8 +1,7 @@
 import React, { useEffect } from "react";
 import mainClasses from "../../styles/main.module.css";
 import { useSelector, useDispatch } from "react-redux";
-import { getShows } from "../../Redux/actions/shows";
-import { addFavouritesShow } from "../../Redux/actions/favouritesShows";
+import { getFavouritesShows, deleteFavouritesShow } from "../../Redux/actions/favouritesShows";
 import Pagination from "@material-ui/lab/Pagination";
 import { Divider, fade, makeStyles } from "@material-ui/core";
 import Loading from "../Loading/Loading";
@@ -71,44 +70,47 @@ export default function Shows(props) {
   const dispatch = useDispatch();
   const [shows, setShows] = React.useState([]);
   const [isLoading, setIsLoading] = React.useState(false);
-  useEffect(() => dispatch(getShows()), [dispatch]);
-  const storeShows = useSelector((state) => state.ShowsReducer?.shows);
-  useEffect(() => setShows(storeShows), [storeShows]);
+  useEffect(() => {
+    dispatch(getFavouritesShows())
+    }, [dispatch]);
+  const storeFavouritesShows = useSelector((state) => state.FavouritesShowsReducer?.shows);
 
+  useEffect(() => setShows(storeFavouritesShows), [storeFavouritesShows]);
+  
   const handleChangeSearch = (event) => {
-    setShows(storeShows);
+    setShows(storeFavouritesShows);
     setIsLoading(true)
     if (event.target.value) {
       setShows(
-        storeShows.filter((show) => show.name.toLowerCase().includes(event.target.value.toLowerCase()))
+        storeFavouritesShows.filter((show) => show.name.toLowerCase().includes(event.target.value.toLowerCase()))
       );
     }
   };
 
   const handleChangeSearchFilter = (event, filterValue) => {
   
-    setShows(storeShows);
+    setShows(storeFavouritesShows);
     setIsLoading(true)
     if (event.target.value) {
         switch (filterValue) {
           case 'Show Status':
             setShows(
-              storeShows.filter((show) => show.status.toLowerCase().includes(event.target.value.toLowerCase()))
+              storeFavouritesShows.filter((show) => show.status.toLowerCase().includes(event.target.value.toLowerCase()))
             );
               break;
           case 'Show Type':
             setShows(
-              storeShows.filter((show) => show.type.toLowerCase().includes(event.target.value.toLowerCase()))
+              storeFavouritesShows.filter((show) => show.type.toLowerCase().includes(event.target.value.toLowerCase()))
             );
               break;
           case 'Rating':
             setShows(
-              storeShows.filter((show) => show.rating.average > parseInt(event.target.value))
+              storeFavouritesShows.filter((show) => show.rating.average > parseInt(event.target.value))
             );
               break;
           case 'Language':
             setShows(
-              storeShows.filter((show) => show.language.toLowerCase().includes(event.target.value.toLowerCase()))
+              storeFavouritesShows.filter((show) => show.language.toLowerCase().includes(event.target.value.toLowerCase()))
             );
               break;
           default:
@@ -116,11 +118,6 @@ export default function Shows(props) {
         }
     }
   };
-
-  const addFavouritesShowHandler = (event, body) => {
-    event.preventDefault()
-    dispatch(addFavouritesShow(body))
-  }
 
   const classes = useStyles();
   const itemsPerPage = 10;
@@ -131,10 +128,15 @@ export default function Shows(props) {
     setPage(value);
   };
 
+  const deleteFavouritesShowHandler = (event, id) => {
+    event.preventDefault()
+    dispatch(deleteFavouritesShow(id))
+    setShows(shows.filter(el => el.id !== id));
+  }
+
   const showView = (event, showId) => {
-    console.log(event.target.type)
     if (event.target.type !== 'button') {
-      props.history.push(`${props.match.path}/${showId}`);
+      props.history.push(`${props.match.path}/shows/${showId}`);
     }
   };
 
@@ -166,7 +168,7 @@ export default function Shows(props) {
               .slice((page - 1) * itemsPerPage, page * itemsPerPage)
               .map((show) => {
                 return (
-                  <div className={"col mb-3"} key={show.id}>
+                  <div className={"col mb-3"} key={show._id}>
                     <div
                       className={"card " + mainClasses.card}
                       onClick={(e) => showView.call(null, e, show.id)}
@@ -199,18 +201,10 @@ export default function Shows(props) {
                             "btn btn-light btn-sm bg-white has-icon btn-block"
                           }
                           type="button"
-                          onClick={(e) => addFavouritesShowHandler.call(null, e, show)}
+                          onClick={(e) => deleteFavouritesShowHandler.call(null, e, show.id)}
                         >
-                          <i className={"material-icons"}>add</i> Add to
+                          <i className={"material-icons"}>delete</i> Delete from
                           favourites
-                        </button>
-                        <button
-                          className={
-                            "btn btn-light btn-sm bg-white has-icon ml-2"
-                          }
-                          type="button"
-                        >
-                          <i className={"material-icons"}>share</i> Share
                         </button>
                       </div>
                     </div>
