@@ -16,6 +16,7 @@ import UpIcon from '@material-ui/icons/KeyboardArrowUp';
 import { green } from '@material-ui/core/colors';
 import FavouritesShows from './FavouritesShows';
 import Friends from './Friends';
+import Notifications from './Notifications';
 
 function TabPanel(props) {
   const { children, value, index, ...other } = props;
@@ -153,7 +154,7 @@ export default function FullWidthTabs(props) {
           <Friends {...props}/>
         </TabPanel>
         <TabPanel value={value} index={2} dir={theme.direction}>
-          Notifications
+          <Notifications {...props} />
         </TabPanel>
         <TabPanel value={value} index={3} dir={theme.direction}>
           Messages

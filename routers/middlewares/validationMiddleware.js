@@ -89,19 +89,15 @@ module.exports.validateRegister = async (req, res, next) => {
 //   next();
 // };
 
-// module.exports.validateLoad = async (req, res, next) => {
-//   const schema = Joi.object({
-//     _id: Joi.string(),
-//     name: Joi.string().required(),
-//     created_by: Joi.string(),
-//     assigned_to: Joi.string(),
-//     payload: Joi.number(),
-//     pickup_address: Joi.string(),
-//     delivery_address: Joi.string(),
-//     dimensions: Joi.object(),
-//     createdDate: Joi.string(),
-//   });
+module.exports.validateNotifications = async (req, res, next) => {
+  const schema = Joi.object({
+    created_by: Joi.string(),
+    assigned_to: Joi.string(),
+    statusNew: Joi.boolean(),
+    message: Joi.string(),
+    created_date: Joi.string(),
+  });
 
-//   await schema.validateAsync(req.body);
-//   next();
-// };
+  await schema.validateAsync(req.body);
+  next();
+};
