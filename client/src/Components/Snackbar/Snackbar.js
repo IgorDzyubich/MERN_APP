@@ -3,6 +3,7 @@ import Button from '@material-ui/core/Button';
 import Snackbar from '@material-ui/core/Snackbar';
 import MuiAlert from '@material-ui/lab/Alert';
 import { makeStyles } from '@material-ui/core/styles';
+import { TextareaAutosize } from '@material-ui/core';
 
 function Alert(props) {
   return <MuiAlert elevation={6} variant="filled" {...props} />;
@@ -25,12 +26,13 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 export default function CustomizedSnackbars(props) {
+  
   const classes = useStyles();
   const [open, setOpen] = React.useState(false);
 
-  const handleClick = () => {
-    setOpen(true);
-  };
+  // const handleClick = () => {
+  //   setOpen(true);
+  // };
 
   const handleClose = (event, reason) => {
     if (reason === 'clickaway') {
@@ -40,17 +42,12 @@ export default function CustomizedSnackbars(props) {
     setOpen(false);
   };
 
-  return (
-    <div className={classes.root}>
-      <Button variant="contained" className={classes.btnWidth} onClick={handleClick}>
-        {props.message}
-      </Button>
+  return (<div>
       <Snackbar open={open} autoHideDuration={6000} onClose={handleClose} anchorOrigin={{ vertical: 'bottom', horizontal: 'left' }}>
         <Alert onClose={handleClose} severity={props.severity} className={classes.alert}>
           {props.message}
         </Alert>
       </Snackbar>
-      
-    </div>
+      </div>
   );
 }

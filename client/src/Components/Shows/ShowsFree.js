@@ -10,6 +10,8 @@ import SearchIcon from "@material-ui/icons/Search";
 import InputBase from "@material-ui/core/InputBase";
 import blueGrey from "@material-ui/core/colors/blueGrey";
 import Popover from '../Popover/Popover'
+import Snackbar from '@material-ui/core/Snackbar';
+import MuiAlert from '@material-ui/lab/Alert';
 
 const lightGreyColor = blueGrey[200];
 
@@ -65,12 +67,19 @@ const useStyles = makeStyles((theme) => ({
     transition: theme.transitions.create("width"),
     width: "100%",
   },
+  alert: {
+    width: '280px'
+  },
 }));
 
-export default function Shows(props) {
-  console.log(props)
+function Alert(props) {
+  return <MuiAlert elevation={6} variant="filled" {...props} />;
+}
+
+export default function ShowsFree(props) {
   const dispatch = useDispatch();
   const [shows, setShows] = React.useState([]);
+  const [open, setOpen] = React.useState(false);
   const [isLoading, setIsLoading] = React.useState(false);
   useEffect(() => dispatch(getShows()), [dispatch]);
   const storeShows = useSelector((state) => state.ShowsReducer?.shows);
@@ -117,11 +126,18 @@ export default function Shows(props) {
         }
     }
   };
-
-  const addFavouritesShowHandler = (event, body) => {
+  
+  const addFavouritesShowHandler = (event) => {
     event.preventDefault()
-    dispatch(addFavouritesShow(body))
+    setOpen(true)
   }
+
+  const handleClose = (event, reason) => {
+    if (reason === 'clickaway') {
+      return;
+    }
+    setOpen(false);
+  };
 
   const classes = useStyles();
   const itemsPerPage = 12;
@@ -133,9 +149,8 @@ export default function Shows(props) {
   };
 
   const showView = (event, showId) => {
-    console.log(event.target.type)
     if (event.target.type !== 'button') {
-      props.history.push(`${props.match.path}/${showId}`);
+      props.history.push(`shows/${showId}`);
     }
   };
 
@@ -200,7 +215,7 @@ export default function Shows(props) {
                             "btn btn-light btn-sm bg-white has-icon btn-block"
                           }
                           type="button"
-                          onClick={(e) => addFavouritesShowHandler.call(null, e, show)}
+                          onClick={(e) => addFavouritesShowHandler.call(null, e)}
                         >
                           <i className={"material-icons"}>add</i> Add to
                           favourites
@@ -210,15 +225,22 @@ export default function Shows(props) {
                             "btn btn-light btn-sm bg-white has-icon ml-2"
                           }
                           type="button"
+                          onClick={(e) => addFavouritesShowHandler.call(null, e)}
                         >
                           <i className={"material-icons"}>share</i> Share
                         </button>
+                        
                       </div>
                     </div>
                   </div>
                 );
               })}
           </div>
+          <Snackbar open={open} autoHideDuration={6000} onClose={handleClose} anchorOrigin={{ vertical: 'bottom', horizontal: 'left' }}>
+            <Alert onClose={handleClose} severity={'info'} className={classes.alert}>
+              {'Log In Please for this action'}
+            </Alert>
+          </Snackbar>
         </div>
       )}
       <Divider />

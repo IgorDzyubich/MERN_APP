@@ -44,45 +44,48 @@ export default function Notifications(props) {
         props.history.push(`${props.match.path}/userProfile/${userId}`);
     }
     
-    return <div>
-                <div className={mainClasses.content}>
-                
-                    <List dense compoent="span"> 
-                    <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-xl-4 gutters-sm">
-                    {notifications
-                    ?.slice((page - 1) * itemsPerPage, page * itemsPerPage)
-                    ?.map(contract => {
-                        const labelId = `list-secondary-label-${contract._id}`;
-                        return (
-                        <ListItem
-                            key={contract._id}
-                            button
-                            onClick={changeUser.bind(null, contract._id)}
-                            className={classes.item}
-                        >
-                        <ListItemText
-                            id={labelId}
-                            primary={contract.message + ',  New:' + contract.statusNew}
-                            secondary={contract.created_date}
-                            className={classes.item}
-                        />
-                        </ListItem> )
-                    })}
-                    </div>
-                    </List>   
-                    <Divider />
-                    <Pagination
-                        count={noOfPages}
-                        page={page}
-                        onChange={handleChange}
-                        defaultPage={1}
-                        color="primary"
-                        size="large"
-                        showFirstButton
-                        showLastButton
-                        classes={{ ul: classes.paginator }}
-                        />
-                    
-                </div>
+    return (
+      <div>
+        <div className={mainClasses.content}>
+          <List dense compoent="span">
+            <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-xl-4 gutters-sm">
+              {notifications
+                ?.slice((page - 1) * itemsPerPage, page * itemsPerPage)
+                ?.map((contract) => {
+                  const labelId = `list-secondary-label-${contract._id}`;
+                  return (
+                    <ListItem
+                      key={contract._id}
+                      button
+                      onClick={changeUser.bind(null, contract._id)}
+                      className={classes.item}
+                    >
+                      <ListItemText
+                        id={labelId}
+                        primary={
+                          contract.message + ",  New:" + contract.statusNew
+                        }
+                        secondary={contract.created_date}
+                        className={classes.item}
+                      />
+                    </ListItem>
+                  );
+                })}
             </div>
+          </List>
+          <Divider />
+          <Pagination
+            count={noOfPages}
+            page={page}
+            onChange={handleChange}
+            defaultPage={1}
+            color="primary"
+            size="large"
+            showFirstButton
+            showLastButton
+            classes={{ ul: classes.paginator }}
+          />
+        </div>
+      </div>
+    );
 }
