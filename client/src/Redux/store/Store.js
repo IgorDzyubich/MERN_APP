@@ -6,6 +6,7 @@ import ContractsReducer from '../reducers/ContractsReducer'
 import ShowsReducer from '../reducers/ShowsReducer'
 import FavouritesShowsReducer from '../reducers/FavouritesShowsReducer'
 import FriendsReducer from '../reducers/FriendsReducer'
+import PeoplesReducer from '../reducers/PeoplesReducer'
 import NotificationsReducer from '../reducers/NotificationsReducer'
 
 let rootReducers = combineReducers({
@@ -14,6 +15,7 @@ let rootReducers = combineReducers({
     ShowsReducer,
     FavouritesShowsReducer,
     FriendsReducer,
+    PeoplesReducer,
     NotificationsReducer,
     ContractsReducer
 })

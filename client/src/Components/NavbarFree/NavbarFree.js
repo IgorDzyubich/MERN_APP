@@ -23,6 +23,7 @@ import Tooltip from '@material-ui/core/Tooltip';
 import Hidden from '@material-ui/core/Hidden';
 import ShowsFree from '../Shows/ShowsFree';
 import Show from '../Shows/Show';
+import Peoples from '../Peoples/Peoples';
 import NotFoundPage from '../NotFoundPage/NotFoundPage'
 
 const drawerWidth = 180;
@@ -113,6 +114,7 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 export default function NavbarFree(props) {
+  console.log('NavbarFree ',props)
   const classes = useStyles();
   const theme = useTheme();
   const [open, setOpen] = React.useState(false);
@@ -193,6 +195,10 @@ export default function NavbarFree(props) {
               <Tooltip title="Shows"><ListItemIcon><MovieIcon /></ListItemIcon></Tooltip>
               <ListItemText primary={'Shows'} />
             </ListItem>
+            <ListItem button key={'Peoples'} onClick={() => props.history.push(`${match.url}/peoples`) }>
+              <Tooltip title="Peoples"><ListItemIcon><PeopleIcon /></ListItemIcon></Tooltip>
+              <ListItemText primary={'Peoples'} />
+            </ListItem>
           
         </List>
       </Drawer>
@@ -201,6 +207,7 @@ export default function NavbarFree(props) {
             <Switch>
             <Route exact path={`${match.url}`} component={ShowsFree} />
             <Route path={`${match.url}shows/:id`} component={Show} />
+            <Route path={`${match.url}/peoples`} component={Peoples} />
             <Route path={`${match.url}/*`} component={NotFoundPage} />
             </Switch>
         </div>

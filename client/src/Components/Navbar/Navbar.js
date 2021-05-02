@@ -42,6 +42,7 @@ import ChangeUser from '../ChangeUser/ChangeUser';
 import AllUsers from '../AllUsers/AllUsers';
 import Shows from '../Shows/Shows';
 import Show from '../Shows/Show';
+import Peoples from '../Peoples/Peoples';
 import InputField from '../InputField/InputField';
 import NotFoundPage from '../NotFoundPage/NotFoundPage'
 import Dashboard from '../Dashboard/Dashboard'
@@ -238,6 +239,10 @@ export default function MiniDrawer(props) {
               <Tooltip title="Shows"><ListItemIcon><MovieIcon /></ListItemIcon></Tooltip>
               <ListItemText primary={'Shows'} />
             </ListItem>
+            <ListItem button key={'Peoples'} onClick={() => props.history.push(`${match.url}/peoples`) }>
+              <Tooltip title="Peoples"><ListItemIcon><PeopleIcon /></ListItemIcon></Tooltip>
+              <ListItemText primary={'Peoples'} />
+            </ListItem>
             {/* <ListItem button onClick={() => props.history.push(`${match.url}/contracts`) }>
               <Tooltip title="Contracts"><ListItemIcon><AssignmentIcon /></ListItemIcon></Tooltip>
               <ListItemText primary={'Contracts'} />
@@ -284,6 +289,7 @@ export default function MiniDrawer(props) {
             <Route path={`${match.url}/item3`} component={Item3} />
             <Route path={`${match.url}/allUsers`} component={AllUsers} />
             <Route exact path={`${match.url}/shows`} component={Shows} />
+            <Route exact path={`${match.url}/peoples`} component={Peoples} />
             <Route path={`${match.url}/shows/:id`} component={Show} />
             <Route path={`${match.url}/inputField`} component={InputField} />
             <Route path={`${match.url}/loginUser`} component={User} />
