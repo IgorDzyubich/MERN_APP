@@ -23,7 +23,8 @@ import Tooltip from '@material-ui/core/Tooltip';
 import Hidden from '@material-ui/core/Hidden';
 import ShowsFree from '../Shows/ShowsFree';
 import Show from '../Shows/Show';
-import Peoples from '../Peoples/Peoples';
+import PeoplesFree from '../Peoples/PeoplesFree';
+import People from '../Peoples/People';
 import NotFoundPage from '../NotFoundPage/NotFoundPage'
 
 const drawerWidth = 180;
@@ -206,8 +207,9 @@ export default function NavbarFree(props) {
         <div className={classes.toolbar}>
             <Switch>
             <Route exact path={`${match.url}`} component={ShowsFree} />
-            <Route path={`${match.url}shows/:id`} component={Show} />
-            <Route path={`${match.url}/peoples`} component={Peoples} />
+            <Route path={`${match.url}/shows/:id`} component={Show} />
+            <Route exact path={`${match.url}/peoples`} component={PeoplesFree} />
+            <Route path={`${match.url}/peoples/:id`} component={People} />
             <Route path={`${match.url}/*`} component={NotFoundPage} />
             </Switch>
         </div>

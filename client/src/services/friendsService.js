@@ -19,7 +19,7 @@ const friendsService = {
                 console.log('Friends service err', err) 
             })
     },
-    addFriend: (body) => {
+    addFriends: (body) => {
         return API.post(`/api/friends`, body)
             .then(res => {
                 return res.data
@@ -28,7 +28,7 @@ const friendsService = {
                 console.log('Add Friends service err', err) 
             })
     },
-    deleteFriend: (id) => {
+    deleteFriends: (id) => {
         return API.delete(`api/friends/${id}`)
             .then(res => {
                 return res.data

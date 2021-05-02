@@ -150,7 +150,7 @@ export default function ShowsFree(props) {
 
   const showView = (event, showId) => {
     if (event.target.type !== 'button') {
-      props.history.push(`shows/${showId}`);
+      props.history.push(`app/shows/${showId}`);
     }
   };
 

@@ -95,6 +95,13 @@ export default function Friends(props) {
     setPage(value);
   };
   
+  const handleClose = (event, reason) => {
+    if (reason === 'clickaway') {
+      return;
+    }
+    setOpen(false);
+  };
+
   const handleChangeSearch = (event) => {
     setPeoples(storePeoples);
     setIsLoading(true)
@@ -114,16 +121,8 @@ export default function Friends(props) {
 
   const addFriendsHandler = (event, body) => {
     event.preventDefault()
-    dispatch(addFriends(body))
-    setOpen(true);
+    setOpen(true)
   }
-
-  const handleClose = (event, reason) => {
-    if (reason === 'clickaway') {
-      return;
-    }
-    setOpen(false);
-  };
 
   return (
     <div style={{width: '100%'}}>
@@ -194,7 +193,7 @@ export default function Friends(props) {
       </div>
       <Snackbar open={open} autoHideDuration={6000} onClose={handleClose} anchorOrigin={{ vertical: 'bottom', horizontal: 'left' }}>
             <Alert onClose={handleClose} severity={'info'} className={classes.alert}>
-              {'People added!'}
+              {'Log In Please for this action'}
             </Alert>
       </Snackbar>
       </div>

@@ -9,6 +9,8 @@ import SearchIcon from "@material-ui/icons/Search";
 import InputBase from "@material-ui/core/InputBase";
 import blueGrey from "@material-ui/core/colors/blueGrey";
 import Popover from '../Popover/Popover'
+import Snackbar from '@material-ui/core/Snackbar';
+import MuiAlert from '@material-ui/lab/Alert';
 
 const lightGreyColor = blueGrey[200];
 
@@ -66,9 +68,14 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
+function Alert(props) {
+  return <MuiAlert elevation={6} variant="filled" {...props} />;
+}
+
 export default function Shows(props) {
   const dispatch = useDispatch();
   const [shows, setShows] = React.useState([]);
+  const [open, setOpen] = React.useState(false);
   const [isLoading, setIsLoading] = React.useState(false);
   useEffect(() => {
     dispatch(getFavouritesShows())
@@ -119,6 +126,13 @@ export default function Shows(props) {
     }
   };
 
+  const handleClose = (event, reason) => {
+    if (reason === 'clickaway') {
+      return;
+    }
+    setOpen(false);
+  };
+
   const classes = useStyles();
   const itemsPerPage = 10;
   const [page, setPage] = React.useState(1);
@@ -132,6 +146,7 @@ export default function Shows(props) {
     event.preventDefault()
     dispatch(deleteFavouritesShow(id))
     setShows(shows.filter(el => el.id !== id));
+    setOpen(true);
   }
 
   const showView = (event, showId) => {
@@ -203,8 +218,7 @@ export default function Shows(props) {
                           type="button"
                           onClick={(e) => deleteFavouritesShowHandler.call(null, e, show.id)}
                         >
-                          <i className={"material-icons"}>delete</i> Delete from
-                          favourites
+                          <i className={"material-icons"}>delete</i> Delete
                         </button>
                       </div>
                     </div>
@@ -212,6 +226,11 @@ export default function Shows(props) {
                 );
               })}
           </div>
+          <Snackbar open={open} autoHideDuration={6000} onClose={handleClose} anchorOrigin={{ vertical: 'bottom', horizontal: 'left' }}>
+            <Alert onClose={handleClose} severity={'info'} className={classes.alert}>
+              {'Show deleted'}
+            </Alert>
+          </Snackbar>
         </div>
       )}
       <Divider />

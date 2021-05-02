@@ -20,54 +20,18 @@ module.exports.postNotifications = async (req, res) => {
   return res.status(200).json({message: 'Notifications created successfully'});
 };
 
-// module.exports.getLoadActive = async (req, res) => {
-//   const {role, _id} = req.payload;
-//   console.log('Role: ', role)
-//   console.log('ID: ', _id)
-//   if (role === 'DRIVER') {
-//     const activeLoad = await Load.findOne({status: 'NEW'})
-//     return res.status(200).json({load: activeLoad});
-//   }
-//   res.status(400).json({message: `Wrong role '${role}' !`});
-// };
-
-// module.exports.getLoadActiveState = async (req, res) => {
-//   const {role, _id} = req.payload;
-//   const state = ['En route to Pick Up', 'Arrived to Pick Up', 'En route to delivery', 'Arrived to delivery' ]
-//   console.log('Role: ', role)
-//   console.log('req.body: ', req.body)
-//   if (role === 'DRIVER') {
-//     const activeLoad = await Load.findOne({status: 'NEW'})
-//     let index = state.findIndex(el => el === activeLoad.state)
-//     activeLoad.state = state[index+1]
-//     return res.status(200).json({
-//       message: `Load state changed to ${activeLoad.state}`
-//     });
-//   }
-//   res.status(400).json({message: `Wrong role '${role}' !`});
-// };
-
-// module.exports.getLoadById = async (req, res) => {
-//   const loadId = req.params.id;
-//   const load = await Load.findOne({_id: loadId});
-//   if (!load) {
-//     return res.status(400).json({message: `No Loads found!`});
-//   }
-//   res.status(200).json({'load': load});
-// };
-
-// module.exports.putLoadById = async (req, res) => {
-//   const {role} = req.payload;
-//   const {updateLoad} = req.body;
-//   const loadId = req.params.id;
-//   if (role === 'SHIPPER') {
-//   const load = await Load.findOneAndUpdate({_id: loadId}, {...updateLoad});
-//   if (!load) {
-//     return res.status(400).json({message: `No Load found!`});
-//   }
-//   res.status(200).json({message: 'Load details changed successfully'});
-//   }
-// };
+module.exports.changeNotifications = async (req, res) => {
+  console.log('req.body', req.body.statusNew)
+  const noteId = req.params.id;
+  
+  const note = await Notifications.findOneAndUpdate({_id: noteId}, {statusNew: false}, {new: true});
+  console.log('note', note)
+  if (!note) {
+    return res.status(400).json({message: `No Note found!`});
+  }
+  res.status(200).json({message: 'Note details changed successfully'});
+  
+};
 
 // module.exports.deleteLoadById = async (req, res) => {
 //   const {role} = req.payload;

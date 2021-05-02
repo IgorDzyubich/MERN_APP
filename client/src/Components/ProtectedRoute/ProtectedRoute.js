@@ -13,7 +13,7 @@ const ProtectedRoute = ({component: Conponent, ...rest}) => {
                     return <Conponent {...props}/>
                 } else {
                     return <Redirect to={{
-                        pathname: '/register',
+                        pathname: '/app',
                         state: {
                             from: props.location
                         }

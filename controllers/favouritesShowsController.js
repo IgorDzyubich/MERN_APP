@@ -45,7 +45,8 @@ module.exports.getFavouritesShows = async (req, res) => {
 module.exports.deleteFavouritesShows = async (req, res) => {
   console.log(req.params)
   const showId = req.params.id;
-  const show = await FavouritesShows.remove({'id': showId});
+  const show = await FavouritesShows.deleteOne({'id': showId});
+  
   if (!show) {
     return res.status(400).json({message: `No show found!`});
   }

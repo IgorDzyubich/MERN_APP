@@ -1,8 +1,8 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import clsx from 'clsx';
 import { makeStyles, useTheme } from '@material-ui/core/styles';
 import { Route, Switch, NavLink, useRouteMatch } from 'react-router-dom';
-import { useSelector } from 'react-redux'
+import { useSelector, useDispatch } from 'react-redux'
 import Drawer from '@material-ui/core/Drawer';
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
@@ -14,14 +14,12 @@ import IconButton from '@material-ui/core/IconButton';
 import PeopleIcon from '@material-ui/icons/People';
 import Badge from '@material-ui/core/Badge';
 import DashboardIcon from '@material-ui/icons/Dashboard';
-import AssignmentIcon from '@material-ui/icons/Assignment';
 import MenuIcon from '@material-ui/icons/Menu';
 import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
 import ChevronRightIcon from '@material-ui/icons/ChevronRight';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemText from '@material-ui/core/ListItemText';
-import InboxIcon from '@material-ui/icons/MoveToInbox';
 import MovieIcon from '@material-ui/icons/Movie';
 import MailIcon from '@material-ui/icons/Mail';
 import ToolbarMenu from "../ToolbarMenu/ToolbarMenu";
@@ -43,9 +41,11 @@ import AllUsers from '../AllUsers/AllUsers';
 import Shows from '../Shows/Shows';
 import Show from '../Shows/Show';
 import Peoples from '../Peoples/Peoples';
+import People from '../Peoples/People';
+import Friend from '../Friend/Friend';
 import InputField from '../InputField/InputField';
 import NotFoundPage from '../NotFoundPage/NotFoundPage'
-import Dashboard from '../Dashboard/Dashboard'
+import {getNotifications, changeNotifications} from '../../Redux/actions/notifications'
 
 const drawerWidth = 180;
 
@@ -117,7 +117,6 @@ const useStyles = makeStyles((theme) => ({
     alignItems: 'center',
     justifyContent: 'center',
     padding: theme.spacing(0, 1),
-    // necessary for content to be below app bar
     ...theme.mixins.toolbar,
   },
   arrow: {
@@ -125,7 +124,6 @@ const useStyles = makeStyles((theme) => ({
     alignItems: 'center',
     justifyContent: 'flex-end',
     padding: theme.spacing(0, 1),
-    // necessary for content to be below app bar
     ...theme.mixins.toolbar,
   },
   content: {
@@ -136,11 +134,15 @@ const useStyles = makeStyles((theme) => ({
 
 export default function MiniDrawer(props) {
   const classes = useStyles();
+  const dispatch = useDispatch()
+  useEffect(()=> {dispatch(getNotifications())}, [dispatch]);
   const theme = useTheme();
   const [open, setOpen] = React.useState(false);
   let match = useRouteMatch();
   const user = useSelector(state => state.AuthReducer.user);
-  // console.log('User', user)
+  const storeNotifications = useSelector(state => state.NotificationsReducer?.notifications)
+  const newNote = storeNotifications.filter((el) => el.statusNew === true).length
+  
   const handleDrawerOpen = () => {
     setOpen(true);
   };
@@ -184,7 +186,7 @@ export default function MiniDrawer(props) {
               </Hidden>
                 <Tooltip title="Notifications">
                   <IconButton>
-                      <Badge badgeContent={2} color="primary">
+                      <Badge badgeContent={newNote} color="primary">
                       <NotificationsActiveIcon className={classes.cursor}/>
                       </Badge>
                   </IconButton>
@@ -231,10 +233,7 @@ export default function MiniDrawer(props) {
               </Tooltip>
               <ListItemText primary={'Dashboard'} />
             </ListItem>
-            {/* <ListItem button key={'All Users'} onClick={() => props.history.push(`${match.url}/allUsers`) }>
-              <Tooltip title="All Users"><ListItemIcon><PeopleIcon /></ListItemIcon></Tooltip>
-              <ListItemText primary={'All Users'} />
-            </ListItem> */}
+            <Divider/>
             <ListItem button key={'Shows'} onClick={() => props.history.push(`${match.url}/shows`) }>
               <Tooltip title="Shows"><ListItemIcon><MovieIcon /></ListItemIcon></Tooltip>
               <ListItemText primary={'Shows'} />
@@ -243,32 +242,6 @@ export default function MiniDrawer(props) {
               <Tooltip title="Peoples"><ListItemIcon><PeopleIcon /></ListItemIcon></Tooltip>
               <ListItemText primary={'Peoples'} />
             </ListItem>
-            {/* <ListItem button onClick={() => props.history.push(`${match.url}/contracts`) }>
-              <Tooltip title="Contracts"><ListItemIcon><AssignmentIcon /></ListItemIcon></Tooltip>
-              <ListItemText primary={'Contracts'} />
-            </ListItem>
-            <ListItem button onClick={() => props.history.push(`${match.url}/item1`) }>
-              <ListItemIcon><InboxIcon /></ListItemIcon>
-              <ListItemText primary='Item 1' />
-            </ListItem>
-            <ListItem button onClick={() => props.history.push(`${match.url}/item2`) }>
-              <ListItemIcon><InboxIcon /></ListItemIcon>
-              <ListItemText primary='Item 2' />
-            </ListItem>
-            <ListItem button onClick={() => props.history.push(`${match.url}/item3`) }>
-              <ListItemIcon><InboxIcon /></ListItemIcon>
-              <ListItemText primary='Item 3' />
-            </ListItem> */}
-          
-        </List>
-        <Divider/>
-        <List>
-          {['Friends', 'Best shows', 'Notifications', 'Messages'].map((text, index) => (
-            <ListItem button key={text}>
-              <ListItemIcon>{index % 2 === 0 ? <InboxIcon /> : <MailIcon />}</ListItemIcon>
-              <ListItemText primary={text} />
-            </ListItem>
-          ))}
         </List>
       </Drawer>
       <main className={classes.content}>
@@ -290,6 +263,8 @@ export default function MiniDrawer(props) {
             <Route path={`${match.url}/allUsers`} component={AllUsers} />
             <Route exact path={`${match.url}/shows`} component={Shows} />
             <Route exact path={`${match.url}/peoples`} component={Peoples} />
+            <Route path={`${match.url}/peoples/:id`} component={People} />
+            <Route path={`${match.url}/friends/:id`} component={Friend} />
             <Route path={`${match.url}/shows/:id`} component={Show} />
             <Route path={`${match.url}/inputField`} component={InputField} />
             <Route path={`${match.url}/loginUser`} component={User} />

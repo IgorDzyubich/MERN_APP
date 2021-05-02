@@ -10,6 +10,8 @@ import SearchIcon from "@material-ui/icons/Search";
 import InputBase from "@material-ui/core/InputBase";
 import blueGrey from "@material-ui/core/colors/blueGrey";
 import Popover from '../Popover/Popover'
+import Snackbar from '@material-ui/core/Snackbar';
+import MuiAlert from '@material-ui/lab/Alert';
 
 const lightGreyColor = blueGrey[200];
 
@@ -67,10 +69,14 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
+function Alert(props) {
+  return <MuiAlert elevation={6} variant="filled" {...props} />;
+}
+
 export default function Shows(props) {
-  console.log(props)
   const dispatch = useDispatch();
   const [shows, setShows] = React.useState([]);
+  const [open, setOpen] = React.useState(false);
   const [isLoading, setIsLoading] = React.useState(false);
   useEffect(() => dispatch(getShows()), [dispatch]);
   const storeShows = useSelector((state) => state.ShowsReducer?.shows);
@@ -121,7 +127,15 @@ export default function Shows(props) {
   const addFavouritesShowHandler = (event, body) => {
     event.preventDefault()
     dispatch(addFavouritesShow(body))
+    setOpen(true);
   }
+
+  const handleClose = (event, reason) => {
+    if (reason === 'clickaway') {
+      return;
+    }
+    setOpen(false);
+  };
 
   const classes = useStyles();
   const itemsPerPage = 12;
@@ -133,7 +147,6 @@ export default function Shows(props) {
   };
 
   const showView = (event, showId) => {
-    console.log(event.target.type)
     if (event.target.type !== 'button') {
       props.history.push(`${props.match.path}/${showId}`);
     }
@@ -219,6 +232,11 @@ export default function Shows(props) {
                 );
               })}
           </div>
+          <Snackbar open={open} autoHideDuration={6000} onClose={handleClose} anchorOrigin={{ vertical: 'bottom', horizontal: 'left' }}>
+            <Alert onClose={handleClose} severity={'success'} className={classes.alert}>
+              {'Show added'}
+            </Alert>
+          </Snackbar>
         </div>
       )}
       <Divider />
