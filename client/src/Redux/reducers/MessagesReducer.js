@@ -1,19 +1,19 @@
-import { GET_NOTIFICATIONS } from '../actions/notifications'
+import { GET_MESSAGES } from '../actions/messages'
 
 const initialState = {
-    notifications: [],
+    messages: [],
     isLoading: false
 }
 
-const NotificationsReducer = (state = initialState, action) => {
+const MessagesReducer = (state = initialState, action) => {
 
     const { type, payload } = action
     
     switch (type) {
-        case GET_NOTIFICATIONS:
+        case GET_MESSAGES:
             return {
                 ...state,
-                notifications: payload,
+                messages: payload,
                 isLoading: true
             }
         default: {
@@ -22,4 +22,4 @@ const NotificationsReducer = (state = initialState, action) => {
     }
 }
 
-export default NotificationsReducer
+export default MessagesReducer

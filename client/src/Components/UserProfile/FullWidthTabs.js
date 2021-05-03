@@ -17,6 +17,7 @@ import { green } from '@material-ui/core/colors';
 import FavouritesShows from './FavouritesShows';
 import Friends from './Friends';
 import Notifications from './Notifications';
+import Messages from './Messages';
 
 function TabPanel(props) {
   const { children, value, index, ...other } = props;
@@ -157,7 +158,7 @@ export default function FullWidthTabs(props) {
           <Notifications {...props} />
         </TabPanel>
         <TabPanel value={value} index={3} dir={theme.direction}>
-          Messages
+          <Messages {...props}/>
         </TabPanel>
       </SwipeableViews>
         {fabs.map((fab, index) => (

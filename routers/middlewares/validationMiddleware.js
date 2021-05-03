@@ -101,3 +101,16 @@ module.exports.validateNotifications = async (req, res, next) => {
   await schema.validateAsync(req.body);
   next();
 };
+
+module.exports.validateMessages = async (req, res, next) => {
+  const schema = Joi.object({
+    created_by: Joi.string(),
+    assigned_to: Joi.string(),
+    statusNew: Joi.boolean(),
+    message: Joi.string(),
+    created_date: Joi.string(),
+  });
+
+  await schema.validateAsync(req.body);
+  next();
+};

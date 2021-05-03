@@ -24,7 +24,6 @@ import MovieIcon from '@material-ui/icons/Movie';
 import MailIcon from '@material-ui/icons/Mail';
 import ToolbarMenu from "../ToolbarMenu/ToolbarMenu";
 import Tooltip from '@material-ui/core/Tooltip';
-import NotificationsActiveIcon from '@material-ui/icons/NotificationsActive';
 import Hidden from '@material-ui/core/Hidden';
 import User from '../User/User'; 
 import UserProfile from '../UserProfile/UserProfile'; 
@@ -45,7 +44,9 @@ import People from '../Peoples/People';
 import Friend from '../Friend/Friend';
 import InputField from '../InputField/InputField';
 import NotFoundPage from '../NotFoundPage/NotFoundPage'
-import {getNotifications, changeNotifications} from '../../Redux/actions/notifications'
+import {getNotifications} from '../../Redux/actions/notifications'
+import {getMessages} from '../../Redux/actions/messages'
+import ToolbarNotificationsMenu from '../ToolbarNotificationsMenu/ToolbarNotificationsMenu';
 
 const drawerWidth = 180;
 
@@ -135,13 +136,18 @@ const useStyles = makeStyles((theme) => ({
 export default function MiniDrawer(props) {
   const classes = useStyles();
   const dispatch = useDispatch()
-  useEffect(()=> {dispatch(getNotifications())}, [dispatch]);
+  useEffect(()=> {
+    dispatch(getNotifications())
+    dispatch(getMessages())
+  }, [dispatch]);
   const theme = useTheme();
   const [open, setOpen] = React.useState(false);
   let match = useRouteMatch();
   const user = useSelector(state => state.AuthReducer.user);
   const storeNotifications = useSelector(state => state.NotificationsReducer?.notifications)
   const newNote = storeNotifications.filter((el) => el.statusNew === true).length
+  const storeMessages = useSelector(state => state.MessagesReducer?.messages)
+  const newMessage = storeMessages.filter((el) => el.statusNew === true).length
   
   const handleDrawerOpen = () => {
     setOpen(true);
@@ -187,14 +193,14 @@ export default function MiniDrawer(props) {
                 <Tooltip title="Notifications">
                   <IconButton>
                       <Badge badgeContent={newNote} color="primary">
-                      <NotificationsActiveIcon className={classes.cursor}/>
+                        <ToolbarNotificationsMenu className={classes.cursor}/>
                       </Badge>
                   </IconButton>
                 </Tooltip>
                 <Tooltip title="Messages">
                   <IconButton>
-                      <Badge badgeContent={4} color="primary">
-                      <MailIcon className={classes.cursor}/>
+                      <Badge badgeContent={newMessage} color="primary">
+                        <MailIcon className={classes.cursor}/>
                       </Badge>
                   </IconButton>
                 </Tooltip>

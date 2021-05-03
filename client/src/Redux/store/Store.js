@@ -8,6 +8,7 @@ import FavouritesShowsReducer from '../reducers/FavouritesShowsReducer'
 import FriendsReducer from '../reducers/FriendsReducer'
 import PeoplesReducer from '../reducers/PeoplesReducer'
 import NotificationsReducer from '../reducers/NotificationsReducer'
+import MessagesReducer from '../reducers/MessagesReducer'
 
 let rootReducers = combineReducers({
     AuthReducer,
@@ -17,6 +18,7 @@ let rootReducers = combineReducers({
     FriendsReducer,
     PeoplesReducer,
     NotificationsReducer,
+    MessagesReducer,
     ContractsReducer
 })
 
