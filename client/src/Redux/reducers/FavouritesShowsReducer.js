@@ -1,5 +1,4 @@
-import { GET_FAVOURITES_SHOWS, GET_FAVOURITES_SHOW, DELETE_FAVOURITES_SHOW, 
-            ADD_FAVOURITES_SHOW } from '../actions/favouritesShows'
+import { GET_FAVOURITES_SHOWS, GET_FAVOURITES_SHOW } from '../actions/favouritesShows'
 
 const initialState = {
     shows: [],

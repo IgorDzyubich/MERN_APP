@@ -8,7 +8,6 @@ export const getFavouritesShows = () => dispatch => {
     return favouritesShowsService.getShows()
         .then(data => {
             dispatch({ type: GET_FAVOURITES_SHOWS, payload: data})
-            // history.push('/dashboard')
         })
         .catch(err => {
             console.log('GET_FAVOURITES_SHOWS Error', err)
@@ -19,7 +18,6 @@ export const getFavouritesShow = (id) => dispatch => {
     return favouritesShowsService.getShow(id)
         .then(data => {
             dispatch({ type: GET_FAVOURITES_SHOW, payload: data})
-            // history.push('/dashboard')
         })
         .catch(err => {
             console.log('GET_FAVOURITES_SHOW Error', err)

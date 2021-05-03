@@ -8,7 +8,6 @@ const {url} = require('./config');
 
 const authRouter = require('./routers/authRouter');
 const showsRouter = require('./routers/favouritesShowsRouter');
-const userRouter = require('./routers/userRouter');
 const friendsRouter = require('./routers/friendsRouter');
 const peoplesRouter = require('./routers/peoplesRouter');
 const notificationsRouter = require('./routers/notificationsRouter');
@@ -24,7 +23,6 @@ app.use('/api/friends', friendsRouter);
 app.use('/api/peoples', peoplesRouter);
 app.use('/api/notifications', notificationsRouter);
 app.use('/api/messages', messagesRouter);
-app.use('/api/users/me', userRouter);
 
 /** The class UnauthorizedError.*/
 class UnauthorizedError extends Error {

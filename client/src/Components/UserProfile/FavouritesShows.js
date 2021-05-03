@@ -1,16 +1,19 @@
 import React, { useEffect } from "react";
 import mainClasses from "../../styles/main.module.css";
 import { useSelector, useDispatch } from "react-redux";
-import { getFavouritesShows, deleteFavouritesShow } from "../../Redux/actions/favouritesShows";
+import {
+  getFavouritesShows,
+  deleteFavouritesShow,
+} from "../../Redux/actions/favouritesShows";
 import Pagination from "@material-ui/lab/Pagination";
 import { Divider, fade, makeStyles } from "@material-ui/core";
 import Loading from "../Loading/Loading";
 import SearchIcon from "@material-ui/icons/Search";
 import InputBase from "@material-ui/core/InputBase";
 import blueGrey from "@material-ui/core/colors/blueGrey";
-import Popover from '../Popover/Popover'
-import Snackbar from '@material-ui/core/Snackbar';
-import MuiAlert from '@material-ui/lab/Alert';
+import Popover from "../Popover/Popover";
+import Snackbar from "@material-ui/core/Snackbar";
+import MuiAlert from "@material-ui/lab/Alert";
 
 const lightGreyColor = blueGrey[200];
 
@@ -72,62 +75,77 @@ function Alert(props) {
   return <MuiAlert elevation={6} variant="filled" {...props} />;
 }
 
-export default function Shows(props) {
+export default function FavouritesShows(props) {
   const dispatch = useDispatch();
   const [shows, setShows] = React.useState([]);
   const [open, setOpen] = React.useState(false);
   const [isLoading, setIsLoading] = React.useState(false);
   useEffect(() => {
-    dispatch(getFavouritesShows())
-    }, [dispatch]);
-  const storeFavouritesShows = useSelector((state) => state.FavouritesShowsReducer?.shows);
+    dispatch(getFavouritesShows());
+  }, [dispatch]);
+  const storeFavouritesShows = useSelector(
+    (state) => state.FavouritesShowsReducer?.shows
+  );
 
   useEffect(() => setShows(storeFavouritesShows), [storeFavouritesShows]);
-  
+
   const handleChangeSearch = (event) => {
     setShows(storeFavouritesShows);
-    setIsLoading(true)
+    setIsLoading(true);
     if (event.target.value) {
       setShows(
-        storeFavouritesShows.filter((show) => show.name.toLowerCase().includes(event.target.value.toLowerCase()))
+        storeFavouritesShows.filter((show) =>
+          show.name.toLowerCase().includes(event.target.value.toLowerCase())
+        )
       );
     }
   };
 
   const handleChangeSearchFilter = (event, filterValue) => {
-  
     setShows(storeFavouritesShows);
-    setIsLoading(true)
+    setIsLoading(true);
     if (event.target.value) {
-        switch (filterValue) {
-          case 'Show Status':
-            setShows(
-              storeFavouritesShows.filter((show) => show.status.toLowerCase().includes(event.target.value.toLowerCase()))
-            );
-              break;
-          case 'Show Type':
-            setShows(
-              storeFavouritesShows.filter((show) => show.type.toLowerCase().includes(event.target.value.toLowerCase()))
-            );
-              break;
-          case 'Rating':
-            setShows(
-              storeFavouritesShows.filter((show) => show.rating.average > parseInt(event.target.value))
-            );
-              break;
-          case 'Language':
-            setShows(
-              storeFavouritesShows.filter((show) => show.language.toLowerCase().includes(event.target.value.toLowerCase()))
-            );
-              break;
-          default:
-              break;
-        }
+      switch (filterValue) {
+        case "Show Status":
+          setShows(
+            storeFavouritesShows.filter((show) =>
+              show.status
+                .toLowerCase()
+                .includes(event.target.value.toLowerCase())
+            )
+          );
+          break;
+        case "Show Type":
+          setShows(
+            storeFavouritesShows.filter((show) =>
+              show.type.toLowerCase().includes(event.target.value.toLowerCase())
+            )
+          );
+          break;
+        case "Rating":
+          setShows(
+            storeFavouritesShows.filter(
+              (show) => show.rating.average > parseInt(event.target.value)
+            )
+          );
+          break;
+        case "Language":
+          setShows(
+            storeFavouritesShows.filter((show) =>
+              show.language
+                .toLowerCase()
+                .includes(event.target.value.toLowerCase())
+            )
+          );
+          break;
+        default:
+          break;
+      }
     }
   };
 
   const handleClose = (event, reason) => {
-    if (reason === 'clickaway') {
+    if (reason === "clickaway") {
       return;
     }
     setOpen(false);
@@ -143,25 +161,25 @@ export default function Shows(props) {
   };
 
   const deleteFavouritesShowHandler = (event, id) => {
-    event.preventDefault()
-    dispatch(deleteFavouritesShow(id))
-    setShows(shows.filter(el => el.id !== id));
+    event.preventDefault();
+    dispatch(deleteFavouritesShow(id));
+    setShows(shows.filter((el) => el.id !== id));
     setOpen(true);
-  }
+  };
 
   const showView = (event, showId) => {
-    if (event.target.type !== 'button') {
+    if (event.target.type !== "button") {
       props.history.push(`${props.match.path}/shows/${showId}`);
     }
   };
 
   return (
-    <div style={{width: '100%'}}>
+    <div style={{ width: "100%" }}>
       {!isLoading && shows.length === 0 ? (
         <Loading />
       ) : (
         <div>
-          <div style={{display: 'flex', justifyContent: 'space-between' }}>
+          <div style={{ display: "flex", justifyContent: "space-between" }}>
             <div className={classes.search}>
               <div className={classes.searchIcon}>
                 <SearchIcon />
@@ -176,7 +194,7 @@ export default function Shows(props) {
                 onChange={handleChangeSearch}
               />
             </div>
-            <Popover handleChangeSearchFilter={handleChangeSearchFilter}/>
+            <Popover handleChangeSearchFilter={handleChangeSearchFilter} />
           </div>
           <div className="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-xl-4 gutters-sm">
             {shows
@@ -216,7 +234,9 @@ export default function Shows(props) {
                             "btn btn-light btn-sm bg-white has-icon btn-block"
                           }
                           type="button"
-                          onClick={(e) => deleteFavouritesShowHandler.call(null, e, show.id)}
+                          onClick={(e) =>
+                            deleteFavouritesShowHandler.call(null, e, show.id)
+                          }
                         >
                           <i className={"material-icons"}>delete</i> Delete
                         </button>
@@ -226,9 +246,18 @@ export default function Shows(props) {
                 );
               })}
           </div>
-          <Snackbar open={open} autoHideDuration={6000} onClose={handleClose} anchorOrigin={{ vertical: 'bottom', horizontal: 'left' }}>
-            <Alert onClose={handleClose} severity={'info'} className={classes.alert}>
-              {'Show deleted'}
+          <Snackbar
+            open={open}
+            autoHideDuration={6000}
+            onClose={handleClose}
+            anchorOrigin={{ vertical: "bottom", horizontal: "left" }}
+          >
+            <Alert
+              onClose={handleClose}
+              severity={"info"}
+              className={classes.alert}
+            >
+              {"Show deleted"}
             </Alert>
           </Snackbar>
         </div>

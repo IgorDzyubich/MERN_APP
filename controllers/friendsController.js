@@ -18,10 +18,8 @@ module.exports.getFriends = async (req, res) => {
 };
 
 module.exports.deleteFriends = async (req, res) => {
-  console.log(req.params)
   const friendsId = req.params.id;
   const friends = await Friends.deleteOne({'_id': friendsId});
-  
   if (!friends) {
     return res.status(400).json({message: `No friends with id 
     '${friendsId}' found!`});

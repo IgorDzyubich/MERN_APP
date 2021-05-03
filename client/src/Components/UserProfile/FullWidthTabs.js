@@ -1,23 +1,16 @@
-import React from 'react';
-import PropTypes from 'prop-types';
-import SwipeableViews from 'react-swipeable-views';
-import { makeStyles, useTheme } from '@material-ui/core/styles';
-import clsx from 'clsx';
-import AppBar from '@material-ui/core/AppBar';
-import Tabs from '@material-ui/core/Tabs';
-import Tab from '@material-ui/core/Tab';
-import Typography from '@material-ui/core/Typography';
-import Box from '@material-ui/core/Box';
-import Zoom from '@material-ui/core/Zoom';
-import Fab from '@material-ui/core/Fab';
-import AddIcon from '@material-ui/icons/Add';
-import EditIcon from '@material-ui/icons/Edit';
-import UpIcon from '@material-ui/icons/KeyboardArrowUp';
-import { green } from '@material-ui/core/colors';
-import FavouritesShows from './FavouritesShows';
-import Friends from './Friends';
-import Notifications from './Notifications';
-import Messages from './Messages';
+import React from "react";
+import PropTypes from "prop-types";
+import SwipeableViews from "react-swipeable-views";
+import { makeStyles, useTheme } from "@material-ui/core/styles";
+import AppBar from "@material-ui/core/AppBar";
+import Tabs from "@material-ui/core/Tabs";
+import Tab from "@material-ui/core/Tab";
+import Typography from "@material-ui/core/Typography";
+import Box from "@material-ui/core/Box";
+import FavouritesShows from "./FavouritesShows";
+import Friends from "./Friends";
+import Notifications from "./Notifications";
+import Messages from "./Messages";
 
 function TabPanel(props) {
   const { children, value, index, ...other } = props;
@@ -48,35 +41,16 @@ TabPanel.propTypes = {
 function a11yProps(index) {
   return {
     id: `full-width-tab-${index}`,
-    'aria-controls': `full-width-tabpanel-${index}`,
+    "aria-controls": `full-width-tabpanel-${index}`,
   };
 }
 
 const useStyles = makeStyles((theme) => ({
   root: {
     backgroundColor: theme.palette.background.paper,
-    width: '100%',
-    position: 'relative',
+    width: "100%",
+    position: "relative",
     minHeight: 200,
-  },
-  fab: {
-    position: 'absolute',
-    bottom: theme.spacing(2),
-    right: theme.spacing(2),
-  },
-  fabGreen: {
-    color: theme.palette.common.white,
-    backgroundColor: green[500],
-    '&:hover': {
-      backgroundColor: green[600],
-    },
-  },
-  fabLightGreen: {
-    color: theme.palette.common.white,
-    backgroundColor: green[200],
-    '&:hover': {
-      backgroundColor: green[300],
-    },
   },
 }));
 
@@ -92,38 +66,6 @@ export default function FullWidthTabs(props) {
   const handleChangeIndex = (index) => {
     setValue(index);
   };
-
-  const transitionDuration = {
-    enter: theme.transitions.duration.enteringScreen,
-    exit: theme.transitions.duration.leavingScreen,
-  };
-
-  const fabs = [
-    {
-      color: 'primary',
-      className: classes.fab,
-      icon: <AddIcon />,
-      label: 'Add',
-    },
-    {
-      color: 'secondary',
-      className: classes.fab,
-      icon: <EditIcon />,
-      label: 'Edit',
-    },
-    {
-      color: 'inherit',
-      className: clsx(classes.fab, classes.fabGreen),
-      icon: <UpIcon />,
-      label: 'Expand',
-    },
-    {
-      color: 'default',
-      className: clsx(classes.fab, classes.fabLightGreen),
-      icon: <UpIcon />,
-      label: 'Expand',
-    },
-  ];
 
   return (
     <div className={classes.root}>
@@ -143,39 +85,24 @@ export default function FullWidthTabs(props) {
         </Tabs>
       </AppBar>
       <SwipeableViews
-        axis={theme.direction === 'rtl' ? 'x-reverse' : 'x'}
+        axis={theme.direction === "rtl" ? "x-reverse" : "x"}
         index={value}
         onChangeIndex={handleChangeIndex}
-        style={{minHeight: '60vh'}}
+        style={{ minHeight: "60vh" }}
       >
         <TabPanel value={value} index={0} dir={theme.direction}>
-          <FavouritesShows {...props}/>
+          <FavouritesShows {...props} />
         </TabPanel>
         <TabPanel value={value} index={1} dir={theme.direction}>
-          <Friends {...props}/>
+          <Friends {...props} />
         </TabPanel>
         <TabPanel value={value} index={2} dir={theme.direction}>
           <Notifications {...props} />
         </TabPanel>
         <TabPanel value={value} index={3} dir={theme.direction}>
-          <Messages {...props}/>
+          <Messages {...props} />
         </TabPanel>
       </SwipeableViews>
-        {fabs.map((fab, index) => (
-          <Zoom
-            key={fab.color}
-            in={value === index}
-            timeout={transitionDuration}
-            style={{
-              transitionDelay: `${value === index ? transitionDuration.exit : 0}ms`,
-            }}
-            unmountOnExit
-          >
-            <Fab aria-label={fab.label} className={fab.className} color={fab.color}>
-              {fab.icon}
-            </Fab>
-          </Zoom>
-        ))}
     </div>
   );
 }

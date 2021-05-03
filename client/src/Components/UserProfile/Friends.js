@@ -77,7 +77,7 @@ function Alert(props) {
 export default function Friends(props) {
   const dispatch = useDispatch();
   const [friends, setFriends] = React.useState([]);
-  const [open1, setOpen1] = React.useState(false);
+  const [open, setOpen] = React.useState(false);
   const [isLoading, setIsLoading] = React.useState(false);
   useEffect(() => {
     dispatch(getFriends());
@@ -110,7 +110,6 @@ export default function Friends(props) {
   };
 
   const changeUser = (event, userId) => {
-    console.log(event.target.type);
     if (event.target.type !== "button") {
       props.history.push(`${props.match.path}/friends/${userId}`);
     }
@@ -120,14 +119,13 @@ export default function Friends(props) {
     if (reason === 'clickaway') {
       return;
     }
-    setOpen1(false);
+    setOpen(false);
   };
 
   const deleteFriendsHandler = (event, friendId) => {
     event.preventDefault();
     dispatch(deleteFriends(friendId));
-    setOpen1(true);
-    console.log('Delete Friend', open1)
+    setOpen(true);
     setFriends(friends.filter((el) => el._id !== friendId));
   };
 
@@ -198,7 +196,7 @@ export default function Friends(props) {
                 );
               })}
           </div>
-          <Snackbar open={open1} autoHideDuration={6000} onClose={handleClose} anchorOrigin={{ vertical: 'bottom', horizontal: 'left' }}>
+          <Snackbar open={open} autoHideDuration={6000} onClose={handleClose} anchorOrigin={{ vertical: 'bottom', horizontal: 'left' }}>
             <Alert onClose={handleClose} severity={'info'} className={classes.alert}>
               {'Show deleted'}
             </Alert>

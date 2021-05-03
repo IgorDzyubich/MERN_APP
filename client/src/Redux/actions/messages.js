@@ -5,7 +5,6 @@ export const CHANGE_MESSAGES = 'CHANGE_MESSAGES'
 export const getMessages = () => dispatch => {
     return MessagesService.getMessages()
         .then(data => {
-            console.log('Note  data', data)
             dispatch({ type: GET_MESSAGES, payload: data.messages})
         })
         .catch(err => {

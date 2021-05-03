@@ -5,12 +5,12 @@ import { getPeoples } from "../../Redux/actions/peoples";
 import { addFriends } from "../../Redux/actions/friends";
 import Pagination from "@material-ui/lab/Pagination";
 import { Divider, fade, makeStyles } from "@material-ui/core";
-import Loading from '../Loading/Loading'
+import Loading from "../Loading/Loading";
 import SearchIcon from "@material-ui/icons/Search";
 import InputBase from "@material-ui/core/InputBase";
 import blueGrey from "@material-ui/core/colors/blueGrey";
-import Snackbar from '@material-ui/core/Snackbar';
-import MuiAlert from '@material-ui/lab/Alert';
+import Snackbar from "@material-ui/core/Snackbar";
+import MuiAlert from "@material-ui/lab/Alert";
 
 const lightGreyColor = blueGrey[200];
 
@@ -80,9 +80,9 @@ export default function Friends(props) {
   useEffect(() => {
     dispatch(getPeoples());
   }, [dispatch]);
-  
+
   const storePeoples = useSelector((state) => {
-    return state.PeoplesReducer?.peoples
+    return state.PeoplesReducer?.peoples;
   });
   useEffect(() => setPeoples(storePeoples), [storePeoples]);
 
@@ -94,39 +94,42 @@ export default function Friends(props) {
   const handleChange = (event, value) => {
     setPage(value);
   };
-  
+
   const handleChangeSearch = (event) => {
     setPeoples(storePeoples);
-    setIsLoading(true)
+    setIsLoading(true);
     if (event.target.value) {
       setPeoples(
-        storePeoples.filter((people) => people.first_name.toLowerCase().includes(event.target.value.toLowerCase()))
+        storePeoples.filter((people) =>
+          people.first_name
+            .toLowerCase()
+            .includes(event.target.value.toLowerCase())
+        )
       );
     }
   };
-  
+
   const changeUser = (event, peopleId) => {
-    console.log(event.target.type)
-    if (event.target.type !== 'button') {
-    props.history.push(`${props.match.path}/${peopleId}`);
+    if (event.target.type !== "button") {
+      props.history.push(`${props.match.path}/${peopleId}`);
     }
   };
 
   const addFriendsHandler = (event, body) => {
-    event.preventDefault()
-    dispatch(addFriends(body))
+    event.preventDefault();
+    dispatch(addFriends(body));
     setOpen(true);
-  }
+  };
 
   const handleClose = (event, reason) => {
-    if (reason === 'clickaway') {
+    if (reason === "clickaway") {
       return;
     }
     setOpen(false);
   };
 
   return (
-    <div style={{width: '100%'}}>
+    <div style={{ width: "100%" }}>
       {!isLoading && peoples.length === 0 ? (
         <Loading />
       ) : (
@@ -147,57 +150,66 @@ export default function Friends(props) {
               />
             </div>
           </div>
-        <div className="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-xl-4 gutters-sm">
-        {peoples
-          .slice((page - 1) * itemsPerPage, page * itemsPerPage)
-          .map((people) => {
-            return (
-              <div className={"col mb-3"} key={people._id}>
-                <div
-                  className={"card " + mainClasses.card}
-                  onClick={(e) => changeUser.call(null, e, people._id)}
-                >
-                  <img
-                    src="https://via.placeholder.com/340x120/90caf9/000000"
-                    alt="Cover"
-                    className={"card-img-top"}
-                  />
-                  <div className="card-body text-center">
-                    <img
-                      src="https://bootdey.com/img/Content/avatar/avatar7.png"
-                      style={{ width: "100px", marginTop: "-65px" }}
-                      alt="User"
-                      className={
-                        "img-fluid img-thumbnail rounded-circle border-0 mb-3"
-                      }
-                    />
-                    <h5 className={"card-title"}>
-                      {people.first_name} 
-                    </h5>
-                    <p className={"text-secondary mb-1"}>{people.email}</p>
-                  </div>
-                  <div className={"card-footer"}>
-                    <button
-                      className={
-                        "btn btn-light btn-sm bg-white has-icon btn-block"
-                      }
-                      type="button"
-                      onClick={(e) => addFriendsHandler.call(null, e, people)}
+          <div className="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-xl-4 gutters-sm">
+            {peoples
+              .slice((page - 1) * itemsPerPage, page * itemsPerPage)
+              .map((people) => {
+                return (
+                  <div className={"col mb-3"} key={people._id}>
+                    <div
+                      className={"card " + mainClasses.card}
+                      onClick={(e) => changeUser.call(null, e, people._id)}
                     >
-                      <i className={"material-icons"}>add</i>Add to Friends
-                    </button>
+                      <img
+                        src="https://via.placeholder.com/340x120/90caf9/000000"
+                        alt="Cover"
+                        className={"card-img-top"}
+                      />
+                      <div className="card-body text-center">
+                        <img
+                          src="https://bootdey.com/img/Content/avatar/avatar7.png"
+                          style={{ width: "100px", marginTop: "-65px" }}
+                          alt="User"
+                          className={
+                            "img-fluid img-thumbnail rounded-circle border-0 mb-3"
+                          }
+                        />
+                        <h5 className={"card-title"}>{people.first_name}</h5>
+                        <p className={"text-secondary mb-1"}>{people.email}</p>
+                      </div>
+                      <div className={"card-footer"}>
+                        <button
+                          className={
+                            "btn btn-light btn-sm bg-white has-icon btn-block"
+                          }
+                          type="button"
+                          onClick={(e) =>
+                            addFriendsHandler.call(null, e, people)
+                          }
+                        >
+                          <i className={"material-icons"}>add</i>Add to Friends
+                        </button>
+                      </div>
+                    </div>
                   </div>
-                </div>
-              </div>
-            );
-          })}
-      </div>
-      <Snackbar open={open} autoHideDuration={6000} onClose={handleClose} anchorOrigin={{ vertical: 'bottom', horizontal: 'left' }}>
-            <Alert onClose={handleClose} severity={'info'} className={classes.alert}>
-              {'People added!'}
+                );
+              })}
+          </div>
+          <Snackbar
+            open={open}
+            autoHideDuration={6000}
+            onClose={handleClose}
+            anchorOrigin={{ vertical: "bottom", horizontal: "left" }}
+          >
+            <Alert
+              onClose={handleClose}
+              severity={"info"}
+              className={classes.alert}
+            >
+              {"People added!"}
             </Alert>
-      </Snackbar>
-      </div>
+          </Snackbar>
+        </div>
       )}
       <Divider />
       <Pagination

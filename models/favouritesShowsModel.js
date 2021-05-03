@@ -33,4 +33,4 @@ const favouritesShowsSchema = new mongoose.Schema({
   },
 });
 
-module.exports.FavouritesShows = mongoose.model('favouritesShows', favouritesShowsSchema);
+module.exports.FavouritesShows = mongoose.model('FavouritesShows', favouritesShowsSchema);

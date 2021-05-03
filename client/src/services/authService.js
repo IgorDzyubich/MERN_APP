@@ -2,11 +2,8 @@ import API from './api'
 
 const AuthService = {
     register: (data) => {
-        // console.log('data => ', data)
         return API.post(`/api/auth/register`, data)
             .then(res => {
-                // console.log('res => ', res)
-                // API.defaults.headers['Authorization'] = `Bearer ${res.data.jwt_token}`
                 return res.data
             })
             .catch(err => {
@@ -14,10 +11,8 @@ const AuthService = {
             })
     },
     login: (data) => {
-        // console.log('data => ', data)
         return API.post(`/api/auth/login`, data)
             .then(res => {
-                // console.log('res => ', res)
                 API.defaults.headers['Authorization'] = `Bearer ${res.data.jwt_token}`
                 return res.data
             })

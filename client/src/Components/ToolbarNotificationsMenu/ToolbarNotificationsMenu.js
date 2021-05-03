@@ -8,15 +8,29 @@ import Divider from '@material-ui/core/Divider';
 import Typography from '@material-ui/core/Typography';
 import ListItemText from "@material-ui/core/ListItemText";
 import ListItem from "@material-ui/core/ListItem";
+import Tooltip from '@material-ui/core/Tooltip';
+import IconButton from '@material-ui/core/IconButton';
+import Badge from '@material-ui/core/Badge';
 
 const useStyles = makeStyles((theme) => ({
     container: {
         display: 'flex',
         flexWrap: 'wrap'
-      },
+    },
+    item: {
+      padding: theme.spacing(1.2),
+      height: "max-content",
+      fontSize: "1.5rem"
+    },
+    itemNew: {
+      padding: theme.spacing(1.2),
+      height: "max-content",
+      fontSize: "1.5rem",
+      backgroundColor: "#DEE1DD"
+    },
 }));
 
-export default function SimplePopover(props) {
+export default function ToolbarNotificationsMenu(props) {
   const dispatch = useDispatch()
   const classes = useStyles();
   const [anchorEl, setAnchorEl] = React.useState(null);
@@ -24,6 +38,7 @@ export default function SimplePopover(props) {
   const [notifications, setNotifications] = React.useState([]);
   const storeNotifications = useSelector(state => state.NotificationsReducer?.notifications)
   useEffect(()=> {setNotifications(storeNotifications)}, [storeNotifications]);
+  const newNote = storeNotifications.filter((el) => el.statusNew === true).length
 
   const changeNotificationsHandler = (event, noteId) => {
     event.preventDefault()
@@ -45,7 +60,13 @@ export default function SimplePopover(props) {
 
   return (
     <div>
-      <NotificationsActiveIcon onClick={handleClick}/>
+      <Tooltip title="Notifications">
+        <IconButton>
+          <Badge badgeContent={newNote} color="primary">
+            <NotificationsActiveIcon onClick={handleClick}/>
+          </Badge>
+        </IconButton>
+      </Tooltip>
       <Popover
         id={id}
         open={open}

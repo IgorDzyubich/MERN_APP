@@ -1,18 +1,18 @@
-import React from 'react';
-import {useDispatch} from 'react-redux';
-import {logout} from '../../Redux/actions/auth';
-import Menu from '@material-ui/core/Menu';
-import MenuItem from '@material-ui/core/MenuItem';
-import AccountCircleIcon from '@material-ui/icons/AccountCircle';
-import IconButton from '@material-ui/core/IconButton';
+import React from "react";
+import { useDispatch } from "react-redux";
+import { logout } from "../../Redux/actions/auth";
+import Menu from "@material-ui/core/Menu";
+import MenuItem from "@material-ui/core/MenuItem";
+import AccountCircleIcon from "@material-ui/icons/AccountCircle";
+import IconButton from "@material-ui/core/IconButton";
 import { useHistory, useRouteMatch } from "react-router-dom";
-import Tooltip from '@material-ui/core/Tooltip';
+import Tooltip from "@material-ui/core/Tooltip";
 
 export default function ToolbarMenu() {
   let match = useRouteMatch();
-  const history = useHistory()
+  const history = useHistory();
   const [anchorEl, setAnchorEl] = React.useState(null);
-  const dispatch = useDispatch()
+  const dispatch = useDispatch();
   const handleClick = (event) => {
     setAnchorEl(event.currentTarget);
   };
@@ -20,17 +20,21 @@ export default function ToolbarMenu() {
     setAnchorEl(null);
   };
   const handleLogout = () => {
-    dispatch(logout()) 
+    dispatch(logout());
   };
   const handleUpdateProfile = () => {
-    history.push(`${match.url}/loginUser`)
+    history.push(`${match.url}/loginUser`);
     setAnchorEl(null);
   };
   return (
     <div>
       <Tooltip title="Profile">
         <IconButton>
-          <AccountCircleIcon aria-controls="simple-menu" aria-haspopup="true" onClick={handleClick}/>
+          <AccountCircleIcon
+            aria-controls="simple-menu"
+            aria-haspopup="true"
+            onClick={handleClick}
+          />
         </IconButton>
       </Tooltip>
       <Menu

@@ -2,7 +2,6 @@ import React, { useEffect } from "react";
 import mainClasses from "../../styles/main.module.css";
 import { useSelector, useDispatch } from "react-redux";
 import { getPeoples } from "../../Redux/actions/peoples";
-import { addFriends } from "../../Redux/actions/friends";
 import Pagination from "@material-ui/lab/Pagination";
 import { Divider, fade, makeStyles } from "@material-ui/core";
 import Loading from '../Loading/Loading'
@@ -72,7 +71,7 @@ function Alert(props) {
   return <MuiAlert elevation={6} variant="filled" {...props} />;
 }
 
-export default function Friends(props) {
+export default function PeoplesFree(props) {
   const dispatch = useDispatch();
   const [isLoading, setIsLoading] = React.useState(false);
   const [open, setOpen] = React.useState(false);
@@ -112,8 +111,7 @@ export default function Friends(props) {
     }
   };
   
-  const changeUser = (event, peopleId) => {
-    console.log(event.target.type)
+  const showPeoplePage = (event, peopleId) => {
     if (event.target.type !== 'button') {
     props.history.push(`${props.match.path}/${peopleId}`);
     }
@@ -154,7 +152,7 @@ export default function Friends(props) {
               <div className={"col mb-3"} key={people._id}>
                 <div
                   className={"card " + mainClasses.card}
-                  onClick={(e) => changeUser.call(null, e, people._id)}
+                  onClick={(e) => showPeoplePage.call(null, e, people._id)}
                 >
                   <img
                     src="https://via.placeholder.com/340x120/90caf9/000000"

@@ -1,31 +1,31 @@
-import React, {useState} from 'react';
-import Avatar from '@material-ui/core/Avatar';
-import Button from '@material-ui/core/Button';
-import CssBaseline from '@material-ui/core/CssBaseline';
-import TextField from '@material-ui/core/TextField';
-import Link from '@material-ui/core/Link';
-import Grid from '@material-ui/core/Grid';
-import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
-import Typography from '@material-ui/core/Typography';
-import { makeStyles } from '@material-ui/core/styles';
-import Container from '@material-ui/core/Container';
+import React, { useState } from "react";
+import Avatar from "@material-ui/core/Avatar";
+import Button from "@material-ui/core/Button";
+import CssBaseline from "@material-ui/core/CssBaseline";
+import TextField from "@material-ui/core/TextField";
+import Link from "@material-ui/core/Link";
+import Grid from "@material-ui/core/Grid";
+import LockOutlinedIcon from "@material-ui/icons/LockOutlined";
+import Typography from "@material-ui/core/Typography";
+import { makeStyles } from "@material-ui/core/styles";
+import Container from "@material-ui/core/Container";
 
-import { useDispatch } from 'react-redux'
-import { log } from '../../Redux/actions/auth'
+import { useDispatch } from "react-redux";
+import { log } from "../../Redux/actions/auth";
 
 const useStyles = makeStyles((theme) => ({
   paper: {
     marginTop: theme.spacing(8),
-    display: 'flex',
-    flexDirection: 'column',
-    alignItems: 'center',
+    display: "flex",
+    flexDirection: "column",
+    alignItems: "center",
   },
   avatar: {
     margin: theme.spacing(1),
     backgroundColor: theme.palette.primary.main,
   },
   form: {
-    width: '100%', 
+    width: "100%",
     marginTop: theme.spacing(1),
   },
   submit: {
@@ -33,29 +33,28 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const Login = ({history}) => {
-  const dispatch = useDispatch()
+const Login = ({ history }) => {
+  const dispatch = useDispatch();
 
-  const [email, setEmail] = useState('')
-  const [password, setPassword] = useState('')
-  const [errorEmail, setErrorEmail] = useState(false)
-  const [emailHelperText, setEmailHelperText] = useState(null)
-  const [errorPassword, setErrorPassword] = useState(false)
-  const [passwordHelperText, setPasswordHelperText] = useState(null)
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [errorEmail, setErrorEmail] = useState(false);
+  const [emailHelperText, setEmailHelperText] = useState(null);
+  const [errorPassword, setErrorPassword] = useState(false);
+  const [passwordHelperText, setPasswordHelperText] = useState(null);
 
   const AuthRoute = async (e) => {
-    e.preventDefault()
+    e.preventDefault();
     if (!validateEmail(email)) {
-      setErrorEmail(true)
-      setEmailHelperText('Incorrect email!')
+      setErrorEmail(true);
+      setEmailHelperText("Incorrect email!");
     } else if (!validatePassword(password)) {
-      setErrorPassword(true)
-      setPasswordHelperText('Incorrect password!')
+      setErrorPassword(true);
+      setPasswordHelperText("Incorrect password!");
     } else {
-      const data = {email, password}
-      dispatch(log(data, history))
+      const data = { email, password };
+      dispatch(log(data, history));
     }
-    
   };
 
   function validateEmail(email) {
@@ -80,7 +79,7 @@ const Login = ({history}) => {
         <Typography component="h1" variant="h5">
           Sign in
         </Typography>
-        <form className={classes.form} >
+        <form className={classes.form}>
           <TextField
             error={errorEmail}
             helperText={emailHelperText}
@@ -94,7 +93,7 @@ const Login = ({history}) => {
             type="email"
             autoComplete="email"
             value={email}
-            onChange={e => setEmail(e.target.value)}
+            onChange={(e) => setEmail(e.target.value)}
           />
           <TextField
             error={errorPassword}
@@ -109,7 +108,7 @@ const Login = ({history}) => {
             id="password"
             autoComplete="current-password"
             value={password}
-            onChange={e => setPassword(e.target.value)}
+            onChange={(e) => setPassword(e.target.value)}
           />
           <Button
             type="submit"
@@ -122,11 +121,6 @@ const Login = ({history}) => {
             Sign In
           </Button>
           <Grid container>
-            <Grid item xs>
-              <Link href="#" variant="body2">
-                Forgot password?
-              </Link>
-            </Grid>
             <Grid item>
               <Link href="/register" variant="body2">
                 {"Don't have an account? Sign Up"}
@@ -137,6 +131,6 @@ const Login = ({history}) => {
       </div>
     </Container>
   );
-}
+};
 
 export default Login;

@@ -4,7 +4,6 @@ const NotificationsService = {
     getNotifications: () => {
         return API.get(`/api/notifications`)
             .then(res => {
-                console.log('Note  res', res.data)
                 return res.data
             })
             .catch(err => {
@@ -19,16 +18,7 @@ const NotificationsService = {
             .catch(err => {
                 console.log('Change Notifications service err', err) 
             })
-    },
-    // addContract: (body) => {
-    //     return API.post(`/api/contracts/contract`, body)
-    //         .then(res => {
-    //             return res.data
-    //         })
-    //         .catch(err => {
-    //             console.log('Add Contract service err', err) 
-    //         })
-    // }
+    }
 }
 
 export default NotificationsService
