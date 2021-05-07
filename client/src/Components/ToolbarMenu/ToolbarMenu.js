@@ -29,13 +29,14 @@ export default function ToolbarMenu() {
   return (
     <div>
       <Tooltip title="Profile">
-        <IconButton>
-          <AccountCircleIcon
-            aria-controls="simple-menu"
-            aria-haspopup="true"
-            onClick={handleClick}
-          />
-        </IconButton>
+        <div onClick={handleClick}>
+          <IconButton>
+            <AccountCircleIcon
+              aria-controls="simple-menu"
+              aria-haspopup="true"
+            />
+          </IconButton>
+        </div>
       </Tooltip>
       <Menu
         id="simple-menu"

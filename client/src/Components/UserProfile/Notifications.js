@@ -65,7 +65,7 @@ export default function Notifications(props) {
     <div>
       <div className={mainClasses.content}>
         <List dense compoent="span">
-          <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-xl-4 gutters-sm">
+          <div className="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-xl-4 gutters-sm">
             {notifications
               ?.slice((page - 1) * itemsPerPage, page * itemsPerPage)
               ?.map((note) => {
