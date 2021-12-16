@@ -7,7 +7,7 @@ const Friend = (props) => {
     return state.FriendsReducer?.friends;
   });
 
-  const friend = friends.filter((el) => el._id === props.match.params.id)[0];
+  const friend = friends.filter((el) => el.id == props.match.params.id)[0];
 
   return (
     <div className="container">
@@ -38,7 +38,7 @@ const Friend = (props) => {
                         <input
                           id="username"
                           name="username"
-                          value={friend.first_name}
+                          value={friend?.name}
                           className="form-control here"
                           onChange={() => {}}
                           required="required"
@@ -48,13 +48,13 @@ const Friend = (props) => {
                     </div>
                     <div className="form-group row mt-2">
                       <label htmlFor="name" className="col-2 col-form-label">
-                        Email:
+                        ID:
                       </label>
                       <div className="col-10">
                         <input
                           id="name"
                           name="name"
-                          value={friend.email}
+                          value={friend?.id}
                           className="form-control here"
                           onChange={() => {}}
                           type="text"

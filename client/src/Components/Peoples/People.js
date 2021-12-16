@@ -6,8 +6,7 @@ const People = (props) => {
   const peoples = useSelector((state) => {
     return state.PeoplesReducer?.peoples;
   });
-
-  const people = peoples.filter((el) => el._id === props.match.params.id)[0];
+  const people = peoples.filter((el) => el.id == props.match.params.id)[0];
 
   return (
     <div className="container">
@@ -38,7 +37,7 @@ const People = (props) => {
                         <input
                           id="username"
                           name="username"
-                          value={people.first_name}
+                          value={people?.name}
                           className="form-control here"
                           onChange={() => {}}
                           required="required"
@@ -48,13 +47,13 @@ const People = (props) => {
                     </div>
                     <div className="form-group row mt-2">
                       <label htmlFor="name" className="col-2 col-form-label">
-                        Email:
+                        ID:
                       </label>
                       <div className="col-10">
                         <input
                           id="name"
                           name="name"
-                          value={people.email}
+                          value={people?.id}
                           className="form-control here"
                           onChange={() => {}}
                           type="text"

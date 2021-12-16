@@ -158,7 +158,7 @@ export default function Friends(props) {
                   <div className={"col mb-3"} key={people._id}>
                     <div
                       className={"card " + mainClasses.card}
-                      onClick={(e) => changeUser.call(null, e, people._id)}
+                      onClick={(e) => changeUser.call(null, e, people.id)}
                     >
                       <img
                         src="https://via.placeholder.com/340x120/90caf9/000000"
@@ -167,14 +167,14 @@ export default function Friends(props) {
                       />
                       <div className="card-body text-center">
                         <img
-                          src="https://bootdey.com/img/Content/avatar/avatar7.png"
+                          src={people.image.medium}
                           style={{ width: "100px", marginTop: "-65px" }}
                           alt="User"
                           className={
                             "img-fluid img-thumbnail rounded-circle border-0 mb-3"
                           }
                         />
-                        <h5 className={"card-title"}>{people.first_name}</h5>
+                        <h5 className={"card-title"}>{people.name}</h5>
                         <p className={"text-secondary mb-1"}>{people.email}</p>
                       </div>
                       <div className={"card-footer"}>

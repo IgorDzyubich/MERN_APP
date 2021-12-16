@@ -84,11 +84,11 @@ export default function PeoplesFree(props) {
     return state.PeoplesReducer?.peoples
   });
   useEffect(() => setPeoples(storePeoples), [storePeoples]);
-
+  console.log('Peoples ===> ', peoples)
   const classes = useStyles();
   const itemsPerPage = 8;
   const [page, setPage] = React.useState(1);
-  const noOfPages = Math.ceil(peoples.length / itemsPerPage);
+  const noOfPages = Math.ceil(peoples?.length / itemsPerPage);
 
   const handleChange = (event, value) => {
     setPage(value);
@@ -152,7 +152,7 @@ export default function PeoplesFree(props) {
               <div className={"col mb-3"} key={people._id}>
                 <div
                   className={"card " + mainClasses.card}
-                  onClick={(e) => showPeoplePage.call(null, e, people._id)}
+                  onClick={(e) => showPeoplePage.call(null, e, people.id)}
                 >
                   <img
                     src="https://via.placeholder.com/340x120/90caf9/000000"
@@ -161,7 +161,7 @@ export default function PeoplesFree(props) {
                   />
                   <div className="card-body text-center">
                     <img
-                      src="https://bootdey.com/img/Content/avatar/avatar7.png"
+                      src={people.image.medium}
                       style={{ width: "100px", marginTop: "-65px" }}
                       alt="User"
                       className={
@@ -169,7 +169,7 @@ export default function PeoplesFree(props) {
                       }
                     />
                     <h5 className={"card-title"}>
-                      {people.first_name} 
+                      {people.name} 
                     </h5>
                     <p className={"text-secondary mb-1"}>{people.email}</p>
                   </div>

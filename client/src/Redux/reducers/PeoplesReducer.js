@@ -12,7 +12,7 @@ const PeoplesReducer = (state = initialState, action) => {
         case GET_PEOPLES:
             return {
                 ...state,
-                peoples: payload.peoples,
+                peoples: payload,
                 isLoading: true
             }
         default: {

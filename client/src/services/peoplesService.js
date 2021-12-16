@@ -1,9 +1,10 @@
-import API from './api'
+import API from './api_tvmaze'
 
 const peoplesService = {
     getPeoples: () => {
-        return API.get(`/api/peoples`)
+        return API.get(`/people?page=1`)
             .then(res => {
+                console.log('Data ', res.data)
                 return res.data
             })
             .catch(err => {

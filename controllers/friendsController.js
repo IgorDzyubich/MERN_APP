@@ -1,9 +1,9 @@
 const {Friends} = require('../models/friendsModel');
 
 module.exports.addFriends = async (req, res) => {
-  const {first_name, email } = req.body
+  const {name, id } = req.body
   const friend = new Friends({
-    first_name, email
+    name, id
   });
   await friend.save();
   res.status(200).json({message: 'Friends created successfully'});

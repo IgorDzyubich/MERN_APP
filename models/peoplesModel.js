@@ -4,7 +4,7 @@ const peoplesSchema = new mongoose.Schema({
   id: {
     type: Number,
   },
-  first_name: {
+  name: {
     type: String,
   },
   second_name: {
@@ -12,7 +12,6 @@ const peoplesSchema = new mongoose.Schema({
   },
   email: {
     type: String,
-    required: true,
   },
   phone: {
     type: String,

@@ -104,7 +104,7 @@ export default function Friends(props) {
     setIsLoading(true)
     if (event.target.value) {
       setFriends(
-        storeFriends.filter((friend) => friend.first_name.toLowerCase().includes(event.target.value.toLowerCase()))
+        storeFriends.filter((friend) => friend.name.toLowerCase().includes(event.target.value.toLowerCase()))
       );
     }
   };
@@ -159,7 +159,7 @@ export default function Friends(props) {
                   <div className={"col mb-3"} key={friend._id}>
                     <div
                       className={"card " + mainClasses.card}
-                      onClick={(e) => changeUser.call(null, e, friend._id)}
+                      onClick={(e) => changeUser.call(null, e, friend.id)}
                     >
                       <img
                         src="https://via.placeholder.com/340x120/90caf9/000000"
@@ -175,7 +175,7 @@ export default function Friends(props) {
                             "img-fluid img-thumbnail rounded-circle border-0 mb-3"
                           }
                         />
-                        <h5 className={"card-title"}>{friend.first_name}</h5>
+                        <h5 className={"card-title"}>{friend.name}</h5>
                         <p className={"text-secondary mb-1"}>{friend.email}</p>
                       </div>
                       <div className={"card-footer"}>

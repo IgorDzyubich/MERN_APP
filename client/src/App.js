@@ -13,7 +13,7 @@ class App extends Component {
     return (
           <div className='app-wrapper-content'>
             <Switch>
-                <Route path='/app' component={NavbarFree} />
+                <Route exact path='/' component={NavbarFree} />
                 <Route path='/login' component={Login} />
                 <Route path='/register' component={Register} />
                 <ProtectedRoute path='/dashboard' component={Navbar} />
