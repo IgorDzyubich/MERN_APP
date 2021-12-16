@@ -2,8 +2,10 @@
 
 ## Install Priject
 
-In the project directory, you should run npm i:
-In the project directory/client, you should run npm i:
+In the project directory, you should run:
+## `npm install`
+In the project directory/client, you should run:
+## `npm install`
 
 ## Available Scripts
 
